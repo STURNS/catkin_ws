@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Turtlesim Node-->
+	<arg name="path" />
+    <node pkg="stage_ros" type="stageros" name="sim" 
+		args="/opt/ros/kinetic/share/stage_ros/world/willow-erratic.world" />
+ 
+          
+  </launch>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Turtlesim Node-->
+	<arg name="path" />
+    <node pkg="stage_ros" type="stageros" name="sim" 
+		args="$(find stage_ros)/world/willow-erratic.world" />
+ 	<node pkg="practic" type="to_robot2.py" name="to_robot" />
+        
+  </launch>
