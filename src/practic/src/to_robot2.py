@@ -10,10 +10,10 @@ import math
 #---------------------------------------------------------------------#  
 class toMyrobot():
     def __init__(self):       
-        rospy.init_node('talker',anonymous=True);
+        rospy.init_node('talker',anonymous=True)
         rospy.on_shutdown(self.shutdown)
         self.rate  = rospy.Rate(10) #10Hz
-        self.pub = rospy.Publisher('/cmd_vel',Twist,queue_size=10);
+        self.pub = rospy.Publisher('/cmd_vel',Twist,queue_size=10)
         self.tf_listener = tf.TransformListener()
         rospy.sleep(2)
         #deteced what's the name is used by base_frame

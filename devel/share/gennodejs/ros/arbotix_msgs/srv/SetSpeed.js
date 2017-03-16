@@ -5,9 +5,12 @@
 
 "use strict";
 
-let _serializer = require('../base_serialize.js');
-let _deserializer = require('../base_deserialize.js');
-let _finder = require('../find.js');
+const _serializer = _ros_msg_utils.Serialize;
+const _arraySerializer = _serializer.Array;
+const _deserializer = _ros_msg_utils.Deserialize;
+const _arrayDeserializer = _deserializer.Array;
+const _finder = _ros_msg_utils.Find;
+const _getByteLength = _ros_msg_utils.getByteLength;
 
 //-----------------------------------------------------------
 
@@ -15,30 +18,39 @@ let _finder = require('../find.js');
 //-----------------------------------------------------------
 
 class SetSpeedRequest {
-  constructor() {
-    this.speed = 0.0;
+  constructor(initObj={}) {
+    if (initObj === null) {
+      // initObj === null is a special case for deserialization where we don't initialize fields
+      this.speed = null;
+    }
+    else {
+      if (initObj.hasOwnProperty('speed')) {
+        this.speed = initObj.speed
+      }
+      else {
+        this.speed = 0.0;
+      }
+    }
   }
 
-  static serialize(obj, bufferInfo) {
+  static serialize(obj, buffer, bufferOffset) {
     // Serializes a message object of type SetSpeedRequest
     // Serialize message field [speed]
-    bufferInfo = _serializer.float64(obj.speed, bufferInfo);
-    return bufferInfo;
+    bufferOffset = _serializer.float64(obj.speed, buffer, bufferOffset);
+    return bufferOffset;
   }
 
-  static deserialize(buffer) {
+  static deserialize(buffer, bufferOffset=[0]) {
     //deserializes a message object of type SetSpeedRequest
-    let tmp;
     let len;
-    let data = new SetSpeedRequest();
+    let data = new SetSpeedRequest(null);
     // Deserialize message field [speed]
-    tmp = _deserializer.float64(buffer);
-    data.speed = tmp.data;
-    buffer = tmp.buffer;
-    return {
-      data: data,
-      buffer: buffer
-    }
+    data.speed = _deserializer.float64(buffer, bufferOffset);
+    return data;
+  }
+
+  static getMessageSize(object) {
+    return 8;
   }
 
   static datatype() {
@@ -59,26 +71,46 @@ class SetSpeedRequest {
     `;
   }
 
+  static Resolve(msg) {
+    // deep-construct a valid message object instance of whatever was passed in
+    if (typeof msg !== 'object' || msg === null) {
+      msg = {};
+    }
+    const resolved = new SetSpeedRequest(null);
+    if (msg.speed !== undefined) {
+      resolved.speed = msg.speed;
+    }
+    else {
+      resolved.speed = 0.0
+    }
+
+    return resolved;
+    }
 };
 
 class SetSpeedResponse {
-  constructor() {
-  }
-
-  static serialize(obj, bufferInfo) {
-    // Serializes a message object of type SetSpeedResponse
-    return bufferInfo;
-  }
-
-  static deserialize(buffer) {
-    //deserializes a message object of type SetSpeedResponse
-    let tmp;
-    let len;
-    let data = new SetSpeedResponse();
-    return {
-      data: data,
-      buffer: buffer
+  constructor(initObj={}) {
+    if (initObj === null) {
+      // initObj === null is a special case for deserialization where we don't initialize fields
     }
+    else {
+    }
+  }
+
+  static serialize(obj, buffer, bufferOffset) {
+    // Serializes a message object of type SetSpeedResponse
+    return bufferOffset;
+  }
+
+  static deserialize(buffer, bufferOffset=[0]) {
+    //deserializes a message object of type SetSpeedResponse
+    let len;
+    let data = new SetSpeedResponse(null);
+    return data;
+  }
+
+  static getMessageSize(object) {
+    return 0;
   }
 
   static datatype() {
@@ -99,9 +131,19 @@ class SetSpeedResponse {
     `;
   }
 
+  static Resolve(msg) {
+    // deep-construct a valid message object instance of whatever was passed in
+    if (typeof msg !== 'object' || msg === null) {
+      msg = {};
+    }
+    const resolved = new SetSpeedResponse(null);
+    return resolved;
+    }
 };
 
 module.exports = {
   Request: SetSpeedRequest,
-  Response: SetSpeedResponse
+  Response: SetSpeedResponse,
+  md5sum() { return '4641bb0523a3557209606d9bd91ce33a'; },
+  datatype() { return 'arbotix_msgs/SetSpeed'; }
 };

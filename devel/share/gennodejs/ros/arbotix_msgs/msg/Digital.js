@@ -5,52 +5,74 @@
 
 "use strict";
 
-let _serializer = require('../base_serialize.js');
-let _deserializer = require('../base_deserialize.js');
-let _finder = require('../find.js');
+const _serializer = _ros_msg_utils.Serialize;
+const _arraySerializer = _serializer.Array;
+const _deserializer = _ros_msg_utils.Deserialize;
+const _arrayDeserializer = _deserializer.Array;
+const _finder = _ros_msg_utils.Find;
+const _getByteLength = _ros_msg_utils.getByteLength;
 let std_msgs = _finder('std_msgs');
 
 //-----------------------------------------------------------
 
 class Digital {
-  constructor() {
-    this.header = new std_msgs.msg.Header();
-    this.value = 0;
-    this.direction = 0;
+  constructor(initObj={}) {
+    if (initObj === null) {
+      // initObj === null is a special case for deserialization where we don't initialize fields
+      this.header = null;
+      this.value = null;
+      this.direction = null;
+    }
+    else {
+      if (initObj.hasOwnProperty('header')) {
+        this.header = initObj.header
+      }
+      else {
+        this.header = new std_msgs.msg.Header();
+      }
+      if (initObj.hasOwnProperty('value')) {
+        this.value = initObj.value
+      }
+      else {
+        this.value = 0;
+      }
+      if (initObj.hasOwnProperty('direction')) {
+        this.direction = initObj.direction
+      }
+      else {
+        this.direction = 0;
+      }
+    }
   }
 
-  static serialize(obj, bufferInfo) {
+  static serialize(obj, buffer, bufferOffset) {
     // Serializes a message object of type Digital
     // Serialize message field [header]
-    bufferInfo = std_msgs.msg.Header.serialize(obj.header, bufferInfo);
+    bufferOffset = std_msgs.msg.Header.serialize(obj.header, buffer, bufferOffset);
     // Serialize message field [value]
-    bufferInfo = _serializer.uint8(obj.value, bufferInfo);
+    bufferOffset = _serializer.uint8(obj.value, buffer, bufferOffset);
     // Serialize message field [direction]
-    bufferInfo = _serializer.uint8(obj.direction, bufferInfo);
-    return bufferInfo;
+    bufferOffset = _serializer.uint8(obj.direction, buffer, bufferOffset);
+    return bufferOffset;
   }
 
-  static deserialize(buffer) {
+  static deserialize(buffer, bufferOffset=[0]) {
     //deserializes a message object of type Digital
-    let tmp;
     let len;
-    let data = new Digital();
+    let data = new Digital(null);
     // Deserialize message field [header]
-    tmp = std_msgs.msg.Header.deserialize(buffer);
-    data.header = tmp.data;
-    buffer = tmp.buffer;
+    data.header = std_msgs.msg.Header.deserialize(buffer, bufferOffset);
     // Deserialize message field [value]
-    tmp = _deserializer.uint8(buffer);
-    data.value = tmp.data;
-    buffer = tmp.buffer;
+    data.value = _deserializer.uint8(buffer, bufferOffset);
     // Deserialize message field [direction]
-    tmp = _deserializer.uint8(buffer);
-    data.direction = tmp.data;
-    buffer = tmp.buffer;
-    return {
-      data: data,
-      buffer: buffer
-    }
+    data.direction = _deserializer.uint8(buffer, bufferOffset);
+    return data;
+  }
+
+  static getMessageSize(object) {
+    let length = 0;
+    length += std_msgs.msg.Header.getMessageSize(object.header);
+    return length + 2;
   }
 
   static datatype() {
@@ -102,6 +124,35 @@ class Digital {
     `;
   }
 
+  static Resolve(msg) {
+    // deep-construct a valid message object instance of whatever was passed in
+    if (typeof msg !== 'object' || msg === null) {
+      msg = {};
+    }
+    const resolved = new Digital(null);
+    if (msg.header !== undefined) {
+      resolved.header = std_msgs.msg.Header.Resolve(msg.header)
+    }
+    else {
+      resolved.header = new std_msgs.msg.Header()
+    }
+
+    if (msg.value !== undefined) {
+      resolved.value = msg.value;
+    }
+    else {
+      resolved.value = 0
+    }
+
+    if (msg.direction !== undefined) {
+      resolved.direction = msg.direction;
+    }
+    else {
+      resolved.direction = 0
+    }
+
+    return resolved;
+    }
 };
 
 // Constants for message

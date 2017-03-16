@@ -5,9 +5,12 @@
 
 "use strict";
 
-let _serializer = require('../base_serialize.js');
-let _deserializer = require('../base_deserialize.js');
-let _finder = require('../find.js');
+const _serializer = _ros_msg_utils.Serialize;
+const _arraySerializer = _serializer.Array;
+const _deserializer = _ros_msg_utils.Deserialize;
+const _arrayDeserializer = _deserializer.Array;
+const _finder = _ros_msg_utils.Find;
+const _getByteLength = _ros_msg_utils.getByteLength;
 
 //-----------------------------------------------------------
 
@@ -15,23 +18,28 @@ let _finder = require('../find.js');
 //-----------------------------------------------------------
 
 class RelaxRequest {
-  constructor() {
-  }
-
-  static serialize(obj, bufferInfo) {
-    // Serializes a message object of type RelaxRequest
-    return bufferInfo;
-  }
-
-  static deserialize(buffer) {
-    //deserializes a message object of type RelaxRequest
-    let tmp;
-    let len;
-    let data = new RelaxRequest();
-    return {
-      data: data,
-      buffer: buffer
+  constructor(initObj={}) {
+    if (initObj === null) {
+      // initObj === null is a special case for deserialization where we don't initialize fields
     }
+    else {
+    }
+  }
+
+  static serialize(obj, buffer, bufferOffset) {
+    // Serializes a message object of type RelaxRequest
+    return bufferOffset;
+  }
+
+  static deserialize(buffer, bufferOffset=[0]) {
+    //deserializes a message object of type RelaxRequest
+    let len;
+    let data = new RelaxRequest(null);
+    return data;
+  }
+
+  static getMessageSize(object) {
+    return 0;
   }
 
   static datatype() {
@@ -52,26 +60,39 @@ class RelaxRequest {
     `;
   }
 
+  static Resolve(msg) {
+    // deep-construct a valid message object instance of whatever was passed in
+    if (typeof msg !== 'object' || msg === null) {
+      msg = {};
+    }
+    const resolved = new RelaxRequest(null);
+    return resolved;
+    }
 };
 
 class RelaxResponse {
-  constructor() {
-  }
-
-  static serialize(obj, bufferInfo) {
-    // Serializes a message object of type RelaxResponse
-    return bufferInfo;
-  }
-
-  static deserialize(buffer) {
-    //deserializes a message object of type RelaxResponse
-    let tmp;
-    let len;
-    let data = new RelaxResponse();
-    return {
-      data: data,
-      buffer: buffer
+  constructor(initObj={}) {
+    if (initObj === null) {
+      // initObj === null is a special case for deserialization where we don't initialize fields
     }
+    else {
+    }
+  }
+
+  static serialize(obj, buffer, bufferOffset) {
+    // Serializes a message object of type RelaxResponse
+    return bufferOffset;
+  }
+
+  static deserialize(buffer, bufferOffset=[0]) {
+    //deserializes a message object of type RelaxResponse
+    let len;
+    let data = new RelaxResponse(null);
+    return data;
+  }
+
+  static getMessageSize(object) {
+    return 0;
   }
 
   static datatype() {
@@ -93,9 +114,19 @@ class RelaxResponse {
     `;
   }
 
+  static Resolve(msg) {
+    // deep-construct a valid message object instance of whatever was passed in
+    if (typeof msg !== 'object' || msg === null) {
+      msg = {};
+    }
+    const resolved = new RelaxResponse(null);
+    return resolved;
+    }
 };
 
 module.exports = {
   Request: RelaxRequest,
-  Response: RelaxResponse
+  Response: RelaxResponse,
+  md5sum() { return 'd41d8cd98f00b204e9800998ecf8427e'; },
+  datatype() { return 'arbotix_msgs/Relax'; }
 };

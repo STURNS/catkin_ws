@@ -1,14 +1,14 @@
 
 "use strict";
 
-let SetupChannel = require('./SetupChannel.js')
 let Relax = require('./Relax.js')
-let SetSpeed = require('./SetSpeed.js')
 let Enable = require('./Enable.js')
+let SetupChannel = require('./SetupChannel.js')
+let SetSpeed = require('./SetSpeed.js')
 
 module.exports = {
-  SetupChannel: SetupChannel,
   Relax: Relax,
-  SetSpeed: SetSpeed,
   Enable: Enable,
+  SetupChannel: SetupChannel,
+  SetSpeed: SetSpeed,
 };
