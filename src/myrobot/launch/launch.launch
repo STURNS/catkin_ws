@@ -1,0 +1,8 @@
+<launch>
+
+
+<node pkg="myrobot" type="mylaser.py" name="mylaser"/>
+<node pkg="myrobot" type="mytf.py" name="mytf" />
+<node pkg="rviz" type="rviz" name="rviz" />
+
+</launch>
