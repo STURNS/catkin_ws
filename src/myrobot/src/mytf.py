@@ -14,9 +14,12 @@ class TF_trans:
 
     def pub_tranforms(self):
         while not rospy.is_shutdown():
-            self.br.sendTransform((0, 0, 0),
+            self.br.sendTransform((0.1, 0, 0),
                 tf.transformations.quaternion_from_euler(0, 0, 0),
                 rospy.Time.now(),'map','odom')
+            self.br.sendTransform((0.1, 0, 0),
+                tf.transformations.quaternion_from_euler(0, 0, 0),
+                rospy.Time.now(),'base_link','odom')
             self.r.sleep()
     def shutdown(self):
         rospy.loginfo("tf exti")
