@@ -13,7 +13,6 @@ class mylaserscan():
     def __init__(self):                  
         rospy.init_node('learn_gmapping', anonymous=False)
         rospy.on_shutdown(self.shutdown)
-
     #---------------------------------------------------------------------#
     #pub the laser data
     #---------------------------------------------------------------------#	

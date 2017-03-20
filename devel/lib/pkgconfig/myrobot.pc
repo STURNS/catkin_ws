@@ -1,0 +1,8 @@
+prefix=/home/ly/catkin_ws/devel
+
+Name: myrobot
+Description: Description of myrobot
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/ly/catkin_ws/devel/lib 
+Requires: 

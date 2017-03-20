@@ -1,8 +1,0 @@
-prefix=/home/ly/catkin_ws/install
-
-Name: practic
-Description: Description of practic
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/ly/catkin_ws/install/lib 
-Requires: 
