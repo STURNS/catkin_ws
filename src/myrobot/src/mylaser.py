@@ -39,7 +39,6 @@ class mLaser():
 			for i in range(n):
 				laser_data.ranges[i] = 2*sin(i*laser_data.angle_increment)
 				laser_data.intensities[i] = 0
-			print(laser_data.header.seq)
 			self.pub.publish(laser_data)
 			self.rate.sleep()
 	#---------------------------------------------------------------------#

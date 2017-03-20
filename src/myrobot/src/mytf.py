@@ -10,13 +10,15 @@ class TF_trans:
         rospy.init_node('tf_node')
         self.br = tf.TransformBroadcaster()
         rospy.on_shutdown(self.shutdown)
-        self.r = rospy.Rate(1)
-
+        self.r = rospy.Rate(2)
     def pub_tranforms(self):
         rospy.loginfo('in vm')
         start_time = rospy.Time.from_sec(rospy.get_time()).to_sec()
         while not rospy.is_shutdown():
-            self.br.sendTransform((2, 0, 0),
+            self.br.sendTransform((0.1, 0, 0),
+                tf.transformations.quaternion_from_euler(0, 0, 0),
+                rospy.Time.now(),'map','odom')
+            self.br.sendTransform((0.1, 0, 0),
                 tf.transformations.quaternion_from_euler(0, 0, 0),
                 rospy.Time.now(),'base_link','odom')
             self.br.sendTransform((1, 0, 0),

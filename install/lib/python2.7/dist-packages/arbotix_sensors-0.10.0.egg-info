@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: arbotix_sensors
+Version: 0.10.0
+Summary: Extends the arbotix_node package with a number of more sophisticated ROS wrappers for common devices.
+Home-page: http://ros.org/wiki/arbotix_sensors
+Author: Michael Ferguson
+Author-email: mike@vanadiumlabs.com
+License: BSD
+Description: UNKNOWN
+Platform: UNKNOWN
