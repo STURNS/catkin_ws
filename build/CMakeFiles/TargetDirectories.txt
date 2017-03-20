@@ -143,6 +143,13 @@
 /home/ly/catkin_ws/build/rbx1/rbx1_vision/CMakeFiles/install/local.dir
 /home/ly/catkin_ws/build/rbx1/rbx1_vision/CMakeFiles/test.dir
 /home/ly/catkin_ws/build/rbx1/rbx1_vision/CMakeFiles/edit_cache.dir
+/home/ly/catkin_ws/build/myrobot/CMakeFiles/list_install_components.dir
+/home/ly/catkin_ws/build/myrobot/CMakeFiles/install.dir
+/home/ly/catkin_ws/build/myrobot/CMakeFiles/rebuild_cache.dir
+/home/ly/catkin_ws/build/myrobot/CMakeFiles/install/strip.dir
+/home/ly/catkin_ws/build/myrobot/CMakeFiles/install/local.dir
+/home/ly/catkin_ws/build/myrobot/CMakeFiles/test.dir
+/home/ly/catkin_ws/build/myrobot/CMakeFiles/edit_cache.dir
 /home/ly/catkin_ws/build/rbx1/rbx1_apps/CMakeFiles/list_install_components.dir
 /home/ly/catkin_ws/build/rbx1/rbx1_apps/CMakeFiles/install.dir
 /home/ly/catkin_ws/build/rbx1/rbx1_apps/CMakeFiles/rebuild_cache.dir

@@ -1,8 +1,10 @@
 <launch>
-
-
-<node pkg="myrobot" type="mylaser.py" name="mylaser"/>
+<include file="$(find rbx1_nav)/launch/fake_move_base.launch" />
+<!--<node pkg="myrobot" type="mylaser.py" name="mylaser"/>-->
 <node pkg="myrobot" type="mytf.py" name="mytf" />
+<node pkg="stage_ros" type="stageros" name="stage" args="$(find stage_ros)/world/willow-erratic.world"/> 
+<!--<node pkg="myrobot" type="to_robot2.py" name="myrobot"/>-->
+<node pkg="map_server" type="map_server" name="mapserver" args="$(find rbx1_nav)/maps/test_map.yaml" />
+<!--<node pkg="fake_localization" type="fake_localization" name="fake_localization" output="screen" />-->
 <node pkg="rviz" type="rviz" name="rviz" />
-
 </launch>

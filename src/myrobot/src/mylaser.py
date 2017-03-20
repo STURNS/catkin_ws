@@ -33,12 +33,12 @@ class mLaser():
 		for i in range(n):
 			laser_data.ranges.append(0)
 			laser_data.intensities.append(0)
-		laser_data.header.frame_id = 'odom'
+		laser_data.header.frame_id = 'base_link'
 		while not rospy.is_shutdown():
 			laser_data.header.stamp = rospy.Time()
 			for i in range(n):
-				laser_data.ranges[i] = 6*sin(i*laser_data.angle_increment)
-				laser_data.intensities[i] = 5
+				laser_data.ranges[i] = 2*sin(i*laser_data.angle_increment)
+				laser_data.intensities[i] = 0
 			print(laser_data.header.seq)
 			self.pub.publish(laser_data)
 			self.rate.sleep()

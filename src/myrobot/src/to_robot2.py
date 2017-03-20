@@ -9,7 +9,11 @@ import math
 # class 
 #---------------------------------------------------------------------#  
 class toMyrobot():
-    def __init__(self):       
+    def __init__(self):  
+        self.static_t = '/world'  
+        self.test1 = '/turtle1'     #'/base_link'
+        self.test2 = '/turtle2'     #'/base_footprint'
+
         rospy.init_node('talker',anonymous=True)
         rospy.on_shutdown(self.shutdown)
         self.rate  = rospy.Rate(10) #10Hz
@@ -18,18 +22,17 @@ class toMyrobot():
         rospy.sleep(2)
         #deteced what's the name is used by base_frame
         try:
-            self.tf_listener.waitForTransform('/odom','/base_footprint',
+            self.tf_listener.waitForTransform(self.static_t,self.test1 ,
                                               rospy.Time(),rospy.Duration())
-            self.base_frame = '/base_footprint'
+            self.base_frame = self.test1 
         except (tf.Exception,tf.ConnectivityException, tf.LookupException):
             try:
-                self.tf_listener.waitForTransform('/odom','/base_link',
+                self.tf_listener.waitForTransform(self.static_t,self.test2,
                                               rospy.Time(),rospy.Duration())
-                self.base_frame = '/base_link'
+                self.base_frame = self.test2
             except (tf.Exception,tf.ConnectivityException, tf.LookupException):
-                rospy.loginfo('cannot transforn /odom to ..')
-                rospy.signal_shutdown('tf exception')
-                
+                rospy.loginfo('cannot transforn ' + self.static_t + ' to ..')
+                rospy.signal_shutdown('tf exception')     
     #---------------------------------------------------------------------#
     # moveForward
     #---------------------------------------------------------------------#
@@ -39,7 +42,7 @@ class toMyrobot():
         move_cmd.linear.x = distance
         rospy.loginfo('Move Forward')
         while not rospy.is_shutdown():
-            (position,rotation) = self.get_odom()
+            #(position,rotation) = self.get_odom()
             move_cmd.linear.z = position.x
             self.pub.publish(move_cmd)
             self.rate.sleep()
@@ -48,7 +51,7 @@ class toMyrobot():
     #---------------------------------------------------------------------#        
     def get_odom(self):
         try:
-            (trans, rot) = self.tf_listener.lookupTransform('/odom',self.base_frame,
+            (trans, rot) = self.tf_listener.lookupTransform(self.static_t,self.base_frame,
                                                             rospy.Time(0))
         except(tf.Exception,tf.ConnectivityException, tf.LookupException):
             rospy.loginfo('tf exception')
