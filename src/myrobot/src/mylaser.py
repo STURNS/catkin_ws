@@ -15,7 +15,7 @@ class mLaser():
 		rospy.init_node('laser_scan', anonymous=False)
 		rospy.on_shutdown(self.shutdown)
 		self.rate  = rospy.Rate(1) #10Hz
-		self.pub = rospy.Publisher('/laser_scan',LaserScan,queue_size=10)
+		self.pub = rospy.Publisher('/base_scan',LaserScan,queue_size=10)
 		rospy.sleep(2)
     #---------------------------------------------------------------------#
     # publish larser scan data

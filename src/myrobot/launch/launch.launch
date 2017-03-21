@@ -1,10 +1,14 @@
 <launch>
+<!--rosrun map_server map_server $(rospack find rbx1_nav)/maps/test_map.yaml-->
 
 <node name="map_server" pkg="map_server" type="map_server" args="$(find rbx1_nav)/maps/test_map.yaml"/>
 <include file="$(find rbx1_nav)/launch/fake_move_base.launch" />
-<node pkg="fake_localization" type="fake_localization" name="fake_localization" output="screen" />
-<!--<node pkg="myrobot" type="mylaser.py" name="mylaser"/>-->
+<!--<node pkg="fake_localization" type="fake_localization" name="fake_localization" output="screen" />-->
+
+<node pkg="myrobot" type="mylaser.py" name="mylaser" />
+<node pkg="myrobot" type="my_odom.py" name="myodom" />
 <node pkg="myrobot" type="mytf.py" name="mytf" />
+<node pkg="amcl" type="amcl" name="amcl" output="screen" />
 <node pkg="rviz" type="rviz" name="rviz" />
 
 </launch>
