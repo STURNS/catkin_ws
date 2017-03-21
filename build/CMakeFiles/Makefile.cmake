@@ -31,6 +31,11 @@ set(CMAKE_MAKEFILE_DEPENDS
   "learning_tf/catkin_generated/package.cmake"
   "myrobot/catkin_generated/ordered_paths.cmake"
   "myrobot/catkin_generated/package.cmake"
+<<<<<<< HEAD
+  "practic/catkin_generated/ordered_paths.cmake"
+  "practic/catkin_generated/package.cmake"
+=======
+>>>>>>> 7a90e8396b8148bb76574b7d4a447bdb4c63afe4
   "rbx1/rbx1/catkin_generated/package.cmake"
   "rbx1/rbx1_apps/catkin_generated/package.cmake"
   "rbx1/rbx1_bringup/catkin_generated/package.cmake"
@@ -64,6 +69,11 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/home/ly/catkin_ws/src/learning_tf/package.xml"
   "/home/ly/catkin_ws/src/myrobot/CMakeLists.txt"
   "/home/ly/catkin_ws/src/myrobot/package.xml"
+<<<<<<< HEAD
+  "/home/ly/catkin_ws/src/practic/CMakeLists.txt"
+  "/home/ly/catkin_ws/src/practic/package.xml"
+=======
+>>>>>>> 7a90e8396b8148bb76574b7d4a447bdb4c63afe4
   "/home/ly/catkin_ws/src/rbx1/rbx1/CMakeLists.txt"
   "/home/ly/catkin_ws/src/rbx1/rbx1/package.xml"
   "/home/ly/catkin_ws/src/rbx1/rbx1_apps/CMakeLists.txt"
@@ -230,7 +240,6 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/opt/ros/kinetic/share/turtlesim/cmake/turtlesim-msg-extras.cmake"
   "/opt/ros/kinetic/share/turtlesim/cmake/turtlesimConfig-version.cmake"
   "/opt/ros/kinetic/share/turtlesim/cmake/turtlesimConfig.cmake"
-  "/opt/ros/kinetic/share/xmlrpcpp/cmake/xmlrpcpp-extras.cmake"
   "/opt/ros/kinetic/share/xmlrpcpp/cmake/xmlrpcppConfig-version.cmake"
   "/opt/ros/kinetic/share/xmlrpcpp/cmake/xmlrpcppConfig.cmake"
   "/usr/lib/python2.7/dist-packages/catkin_pkg/templates/metapackage.cmake.in"

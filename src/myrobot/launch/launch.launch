@@ -1,4 +1,5 @@
 <launch>
+<<<<<<< HEAD
 <!--rosrun map_server map_server $(rospack find rbx1_nav)/maps/test_map.yaml-->
 
 <node name="map_server" pkg="map_server" type="map_server" args="$(find rbx1_nav)/maps/test_map.yaml"/>
@@ -9,6 +10,21 @@
 <node pkg="myrobot" type="my_odom.py" name="myodom" />
 <node pkg="myrobot" type="mytf.py" name="mytf" />
 <node pkg="amcl" type="amcl" name="amcl" output="screen" />
-<node pkg="rviz" type="rviz" name="rviz" />
+=======
+<<<<<<< HEAD
+<include file="$(find rbx1_nav)/launch/fake_move_base.launch" />
+=======
 
+<node name="map_server" pkg="map_server" type="map_server" args="$(find rbx1_nav)/maps/test_map.yaml"/>
+<include file="$(find rbx1_nav)/launch/fake_move_base.launch" />
+<node pkg="fake_localization" type="fake_localization" name="fake_localization" output="screen" />
+>>>>>>> 7a90e8396b8148bb76574b7d4a447bdb4c63afe4
+<!--<node pkg="myrobot" type="mylaser.py" name="mylaser"/>-->
+<node pkg="myrobot" type="mytf.py" name="mytf" />
+<node pkg="stage_ros" type="stageros" name="stage" args="$(find stage_ros)/world/willow-erratic.world"/> 
+<!--<node pkg="myrobot" type="to_robot2.py" name="myrobot"/>-->
+<node pkg="map_server" type="map_server" name="mapserver" args="$(find rbx1_nav)/maps/test_map.yaml" />
+<!--<node pkg="fake_localization" type="fake_localization" name="fake_localization" output="screen" />-->
+>>>>>>> 0bc6372d42efab43ea4a7e917489a6a685b65e32
+<node pkg="rviz" type="rviz" name="rviz" />
 </launch>

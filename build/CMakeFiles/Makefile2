@@ -1645,6 +1645,27 @@ rbx1/rbx1_vision/preinstall:
 
 #=============================================================================
 # Directory level rules for directory myrobot
+<<<<<<< HEAD
+
+# Convenience name for "all" pass in the directory.
+myrobot/all:
+
+.PHONY : myrobot/all
+
+# Convenience name for "clean" pass in the directory.
+myrobot/clean:
+
+.PHONY : myrobot/clean
+
+# Convenience name for "preinstall" pass in the directory.
+myrobot/preinstall:
+
+.PHONY : myrobot/preinstall
+
+#=============================================================================
+# Directory level rules for directory rbx1/rbx1_apps
+=======
+>>>>>>> 7a90e8396b8148bb76574b7d4a447bdb4c63afe4
 
 # Convenience name for "all" pass in the directory.
 myrobot/all:
