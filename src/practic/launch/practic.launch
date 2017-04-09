@@ -1,9 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-    <!-- Turtlesim Node-->
-	<arg name="path" />
-    <node pkg="stage_ros" type="stageros" name="sim" 
-		args="$(find stage_ros)/world/willow-erratic.world" />
-    <node pkg="gmapping" type="slam_gmapping" name="map" args="scan:base_scan" />  
-    <node pkg="rviz" type="rviz" name="rviz" />
+<node pkg="practic" type="test.py" name="tets" output="screen">
+    <rosparam file="$(find practic)/config/base_local_planner_params.yaml" command="load" />
+</node>  
   </launch>

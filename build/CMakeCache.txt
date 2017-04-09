@@ -192,6 +192,12 @@ EMPY_EXECUTABLE:FILEPATH=/usr/bin/empy
 //Empy script
 EMPY_SCRIPT:STRING=/usr/bin/empy
 
+//Value Computed by CMake
+Fake_Lobot_BINARY_DIR:STATIC=/home/ly/catkin_ws/build/Fake_Lobot
+
+//Value Computed by CMake
+Fake_Lobot_SOURCE_DIR:STATIC=/home/ly/catkin_ws/src/Fake_Lobot
+
 //Path to a file.
 GTEST_INCLUDE_DIR:PATH=/usr/include
 
@@ -373,6 +379,9 @@ myrobot_BINARY_DIR:STATIC=/home/ly/catkin_ws/build/myrobot
 //Value Computed by CMake
 myrobot_SOURCE_DIR:STATIC=/home/ly/catkin_ws/src/myrobot
 
+//The directory containing a CMake configuration file for nav_msgs.
+nav_msgs_DIR:PATH=/opt/ros/kinetic/share/nav_msgs/cmake
+
 //Value Computed by CMake
 practic_BINARY_DIR:STATIC=/home/ly/catkin_ws/build/practic
 
@@ -433,6 +442,30 @@ rbx1_vision_BINARY_DIR:STATIC=/home/ly/catkin_ws/build/rbx1/rbx1_vision
 //Value Computed by CMake
 rbx1_vision_SOURCE_DIR:STATIC=/home/ly/catkin_ws/src/rbx1/rbx1_vision
 
+//Value Computed by CMake
+ros_arduino_bridge_BINARY_DIR:STATIC=/home/ly/catkin_ws/build/ros_arduino_bridge/ros_arduino_bridge
+
+//Value Computed by CMake
+ros_arduino_bridge_SOURCE_DIR:STATIC=/home/ly/catkin_ws/src/ros_arduino_bridge/ros_arduino_bridge
+
+//Value Computed by CMake
+ros_arduino_firmware_BINARY_DIR:STATIC=/home/ly/catkin_ws/build/ros_arduino_bridge/ros_arduino_firmware
+
+//Value Computed by CMake
+ros_arduino_firmware_SOURCE_DIR:STATIC=/home/ly/catkin_ws/src/ros_arduino_bridge/ros_arduino_firmware
+
+//Value Computed by CMake
+ros_arduino_msgs_BINARY_DIR:STATIC=/home/ly/catkin_ws/build/ros_arduino_bridge/ros_arduino_msgs
+
+//Value Computed by CMake
+ros_arduino_msgs_SOURCE_DIR:STATIC=/home/ly/catkin_ws/src/ros_arduino_bridge/ros_arduino_msgs
+
+//Value Computed by CMake
+ros_arduino_python_BINARY_DIR:STATIC=/home/ly/catkin_ws/build/ros_arduino_bridge/ros_arduino_python
+
+//Value Computed by CMake
+ros_arduino_python_SOURCE_DIR:STATIC=/home/ly/catkin_ws/src/ros_arduino_bridge/ros_arduino_python
+
 //The directory containing a CMake configuration file for rosconsole.
 rosconsole_DIR:PATH=/opt/ros/kinetic/share/rosconsole/cmake
 
@@ -450,6 +483,9 @@ rosgraph_DIR:PATH=/opt/ros/kinetic/share/rosgraph/cmake
 
 //The directory containing a CMake configuration file for rosgraph_msgs.
 rosgraph_msgs_DIR:PATH=/opt/ros/kinetic/share/rosgraph_msgs/cmake
+
+//The directory containing a CMake configuration file for roslib.
+roslib_DIR:PATH=/opt/ros/kinetic/share/roslib/cmake
 
 //The directory containing a CMake configuration file for rospy.
 rospy_DIR:PATH=/opt/ros/kinetic/share/rospy/cmake
@@ -598,7 +634,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=20
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=25
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
