@@ -5,9 +5,12 @@
 
 "use strict";
 
-let _serializer = require('../base_serialize.js');
-let _deserializer = require('../base_deserialize.js');
-let _finder = require('../find.js');
+const _serializer = _ros_msg_utils.Serialize;
+const _arraySerializer = _serializer.Array;
+const _deserializer = _ros_msg_utils.Deserialize;
+const _arrayDeserializer = _deserializer.Array;
+const _finder = _ros_msg_utils.Find;
+const _getByteLength = _ros_msg_utils.getByteLength;
 
 //-----------------------------------------------------------
 
@@ -15,30 +18,39 @@ let _finder = require('../find.js');
 //-----------------------------------------------------------
 
 class AnalogReadRequest {
-  constructor() {
-    this.pin = 0;
+  constructor(initObj={}) {
+    if (initObj === null) {
+      // initObj === null is a special case for deserialization where we don't initialize fields
+      this.pin = null;
+    }
+    else {
+      if (initObj.hasOwnProperty('pin')) {
+        this.pin = initObj.pin
+      }
+      else {
+        this.pin = 0;
+      }
+    }
   }
 
-  static serialize(obj, bufferInfo) {
+  static serialize(obj, buffer, bufferOffset) {
     // Serializes a message object of type AnalogReadRequest
     // Serialize message field [pin]
-    bufferInfo = _serializer.uint8(obj.pin, bufferInfo);
-    return bufferInfo;
+    bufferOffset = _serializer.uint8(obj.pin, buffer, bufferOffset);
+    return bufferOffset;
   }
 
-  static deserialize(buffer) {
+  static deserialize(buffer, bufferOffset=[0]) {
     //deserializes a message object of type AnalogReadRequest
-    let tmp;
     let len;
-    let data = new AnalogReadRequest();
+    let data = new AnalogReadRequest(null);
     // Deserialize message field [pin]
-    tmp = _deserializer.uint8(buffer);
-    data.pin = tmp.data;
-    buffer = tmp.buffer;
-    return {
-      data: data,
-      buffer: buffer
-    }
+    data.pin = _deserializer.uint8(buffer, bufferOffset);
+    return data;
+  }
+
+  static getMessageSize(object) {
+    return 1;
   }
 
   static datatype() {
@@ -59,33 +71,57 @@ class AnalogReadRequest {
     `;
   }
 
+  static Resolve(msg) {
+    // deep-construct a valid message object instance of whatever was passed in
+    if (typeof msg !== 'object' || msg === null) {
+      msg = {};
+    }
+    const resolved = new AnalogReadRequest(null);
+    if (msg.pin !== undefined) {
+      resolved.pin = msg.pin;
+    }
+    else {
+      resolved.pin = 0
+    }
+
+    return resolved;
+    }
 };
 
 class AnalogReadResponse {
-  constructor() {
-    this.value = 0;
+  constructor(initObj={}) {
+    if (initObj === null) {
+      // initObj === null is a special case for deserialization where we don't initialize fields
+      this.value = null;
+    }
+    else {
+      if (initObj.hasOwnProperty('value')) {
+        this.value = initObj.value
+      }
+      else {
+        this.value = 0;
+      }
+    }
   }
 
-  static serialize(obj, bufferInfo) {
+  static serialize(obj, buffer, bufferOffset) {
     // Serializes a message object of type AnalogReadResponse
     // Serialize message field [value]
-    bufferInfo = _serializer.uint16(obj.value, bufferInfo);
-    return bufferInfo;
+    bufferOffset = _serializer.uint16(obj.value, buffer, bufferOffset);
+    return bufferOffset;
   }
 
-  static deserialize(buffer) {
+  static deserialize(buffer, bufferOffset=[0]) {
     //deserializes a message object of type AnalogReadResponse
-    let tmp;
     let len;
-    let data = new AnalogReadResponse();
+    let data = new AnalogReadResponse(null);
     // Deserialize message field [value]
-    tmp = _deserializer.uint16(buffer);
-    data.value = tmp.data;
-    buffer = tmp.buffer;
-    return {
-      data: data,
-      buffer: buffer
-    }
+    data.value = _deserializer.uint16(buffer, bufferOffset);
+    return data;
+  }
+
+  static getMessageSize(object) {
+    return 2;
   }
 
   static datatype() {
@@ -107,9 +143,26 @@ class AnalogReadResponse {
     `;
   }
 
+  static Resolve(msg) {
+    // deep-construct a valid message object instance of whatever was passed in
+    if (typeof msg !== 'object' || msg === null) {
+      msg = {};
+    }
+    const resolved = new AnalogReadResponse(null);
+    if (msg.value !== undefined) {
+      resolved.value = msg.value;
+    }
+    else {
+      resolved.value = 0
+    }
+
+    return resolved;
+    }
 };
 
 module.exports = {
   Request: AnalogReadRequest,
-  Response: AnalogReadResponse
+  Response: AnalogReadResponse,
+  md5sum() { return '390d2907e6c6cb9c9490e8fab3391260'; },
+  datatype() { return 'ros_arduino_msgs/AnalogRead'; }
 };

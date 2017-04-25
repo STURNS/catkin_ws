@@ -5,9 +5,12 @@
 
 "use strict";
 
-let _serializer = require('../base_serialize.js');
-let _deserializer = require('../base_deserialize.js');
-let _finder = require('../find.js');
+const _serializer = _ros_msg_utils.Serialize;
+const _arraySerializer = _serializer.Array;
+const _deserializer = _ros_msg_utils.Deserialize;
+const _arrayDeserializer = _deserializer.Array;
+const _finder = _ros_msg_utils.Find;
+const _getByteLength = _ros_msg_utils.getByteLength;
 
 //-----------------------------------------------------------
 
@@ -15,37 +18,50 @@ let _finder = require('../find.js');
 //-----------------------------------------------------------
 
 class DigitalSetDirectionRequest {
-  constructor() {
-    this.pin = 0;
-    this.direction = false;
+  constructor(initObj={}) {
+    if (initObj === null) {
+      // initObj === null is a special case for deserialization where we don't initialize fields
+      this.pin = null;
+      this.direction = null;
+    }
+    else {
+      if (initObj.hasOwnProperty('pin')) {
+        this.pin = initObj.pin
+      }
+      else {
+        this.pin = 0;
+      }
+      if (initObj.hasOwnProperty('direction')) {
+        this.direction = initObj.direction
+      }
+      else {
+        this.direction = false;
+      }
+    }
   }
 
-  static serialize(obj, bufferInfo) {
+  static serialize(obj, buffer, bufferOffset) {
     // Serializes a message object of type DigitalSetDirectionRequest
     // Serialize message field [pin]
-    bufferInfo = _serializer.uint8(obj.pin, bufferInfo);
+    bufferOffset = _serializer.uint8(obj.pin, buffer, bufferOffset);
     // Serialize message field [direction]
-    bufferInfo = _serializer.bool(obj.direction, bufferInfo);
-    return bufferInfo;
+    bufferOffset = _serializer.bool(obj.direction, buffer, bufferOffset);
+    return bufferOffset;
   }
 
-  static deserialize(buffer) {
+  static deserialize(buffer, bufferOffset=[0]) {
     //deserializes a message object of type DigitalSetDirectionRequest
-    let tmp;
     let len;
-    let data = new DigitalSetDirectionRequest();
+    let data = new DigitalSetDirectionRequest(null);
     // Deserialize message field [pin]
-    tmp = _deserializer.uint8(buffer);
-    data.pin = tmp.data;
-    buffer = tmp.buffer;
+    data.pin = _deserializer.uint8(buffer, bufferOffset);
     // Deserialize message field [direction]
-    tmp = _deserializer.bool(buffer);
-    data.direction = tmp.data;
-    buffer = tmp.buffer;
-    return {
-      data: data,
-      buffer: buffer
-    }
+    data.direction = _deserializer.bool(buffer, bufferOffset);
+    return data;
+  }
+
+  static getMessageSize(object) {
+    return 2;
   }
 
   static datatype() {
@@ -67,26 +83,53 @@ class DigitalSetDirectionRequest {
     `;
   }
 
+  static Resolve(msg) {
+    // deep-construct a valid message object instance of whatever was passed in
+    if (typeof msg !== 'object' || msg === null) {
+      msg = {};
+    }
+    const resolved = new DigitalSetDirectionRequest(null);
+    if (msg.pin !== undefined) {
+      resolved.pin = msg.pin;
+    }
+    else {
+      resolved.pin = 0
+    }
+
+    if (msg.direction !== undefined) {
+      resolved.direction = msg.direction;
+    }
+    else {
+      resolved.direction = false
+    }
+
+    return resolved;
+    }
 };
 
 class DigitalSetDirectionResponse {
-  constructor() {
-  }
-
-  static serialize(obj, bufferInfo) {
-    // Serializes a message object of type DigitalSetDirectionResponse
-    return bufferInfo;
-  }
-
-  static deserialize(buffer) {
-    //deserializes a message object of type DigitalSetDirectionResponse
-    let tmp;
-    let len;
-    let data = new DigitalSetDirectionResponse();
-    return {
-      data: data,
-      buffer: buffer
+  constructor(initObj={}) {
+    if (initObj === null) {
+      // initObj === null is a special case for deserialization where we don't initialize fields
     }
+    else {
+    }
+  }
+
+  static serialize(obj, buffer, bufferOffset) {
+    // Serializes a message object of type DigitalSetDirectionResponse
+    return bufferOffset;
+  }
+
+  static deserialize(buffer, bufferOffset=[0]) {
+    //deserializes a message object of type DigitalSetDirectionResponse
+    let len;
+    let data = new DigitalSetDirectionResponse(null);
+    return data;
+  }
+
+  static getMessageSize(object) {
+    return 0;
   }
 
   static datatype() {
@@ -107,9 +150,19 @@ class DigitalSetDirectionResponse {
     `;
   }
 
+  static Resolve(msg) {
+    // deep-construct a valid message object instance of whatever was passed in
+    if (typeof msg !== 'object' || msg === null) {
+      msg = {};
+    }
+    const resolved = new DigitalSetDirectionResponse(null);
+    return resolved;
+    }
 };
 
 module.exports = {
   Request: DigitalSetDirectionRequest,
-  Response: DigitalSetDirectionResponse
+  Response: DigitalSetDirectionResponse,
+  md5sum() { return 'b10eff5e5e7e4623e1ee840cec92b372'; },
+  datatype() { return 'ros_arduino_msgs/DigitalSetDirection'; }
 };

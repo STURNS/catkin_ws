@@ -1,17 +1,11 @@
 <launch>
-<<<<<<< HEAD
-<include file="$(find rbx1_nav)/launch/fake_move_base.launch" />
-=======
 
-<node name="map_server" pkg="map_server" type="map_server" args="$(find rbx1_nav)/maps/test_map.yaml"/>
-<include file="$(find rbx1_nav)/launch/fake_move_base.launch" />
-<node pkg="fake_localization" type="fake_localization" name="fake_localization" output="screen" />
->>>>>>> 7a90e8396b8148bb76574b7d4a447bdb4c63afe4
-<!--<node pkg="myrobot" type="mylaser.py" name="mylaser"/>-->
+
 <node pkg="myrobot" type="mytf.py" name="mytf" />
-<node pkg="stage_ros" type="stageros" name="stage" args="$(find stage_ros)/world/willow-erratic.world"/> 
-<!--<node pkg="myrobot" type="to_robot2.py" name="myrobot"/>-->
-<node pkg="map_server" type="map_server" name="mapserver" args="$(find rbx1_nav)/maps/test_map.yaml" />
-<!--<node pkg="fake_localization" type="fake_localization" name="fake_localization" output="screen" />-->
+
+<node pkg="myrobot" type="Comm.py" name="mycomm" >
+<rosparam file="$(find myrobot)/config/comm_config.yaml" command="load" />
+</node>
+
 <node pkg="rviz" type="rviz" name="rviz" />
 </launch>

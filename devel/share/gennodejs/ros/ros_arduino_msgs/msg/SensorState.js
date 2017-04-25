@@ -5,74 +5,78 @@
 
 "use strict";
 
-let _serializer = require('../base_serialize.js');
-let _deserializer = require('../base_deserialize.js');
-let _finder = require('../find.js');
+const _serializer = _ros_msg_utils.Serialize;
+const _arraySerializer = _serializer.Array;
+const _deserializer = _ros_msg_utils.Deserialize;
+const _arrayDeserializer = _deserializer.Array;
+const _finder = _ros_msg_utils.Find;
+const _getByteLength = _ros_msg_utils.getByteLength;
 let std_msgs = _finder('std_msgs');
 
 //-----------------------------------------------------------
 
 class SensorState {
-  constructor() {
-    this.header = new std_msgs.msg.Header();
-    this.name = [];
-    this.value = [];
+  constructor(initObj={}) {
+    if (initObj === null) {
+      // initObj === null is a special case for deserialization where we don't initialize fields
+      this.header = null;
+      this.name = null;
+      this.value = null;
+    }
+    else {
+      if (initObj.hasOwnProperty('header')) {
+        this.header = initObj.header
+      }
+      else {
+        this.header = new std_msgs.msg.Header();
+      }
+      if (initObj.hasOwnProperty('name')) {
+        this.name = initObj.name
+      }
+      else {
+        this.name = [];
+      }
+      if (initObj.hasOwnProperty('value')) {
+        this.value = initObj.value
+      }
+      else {
+        this.value = [];
+      }
+    }
   }
 
-  static serialize(obj, bufferInfo) {
+  static serialize(obj, buffer, bufferOffset) {
     // Serializes a message object of type SensorState
     // Serialize message field [header]
-    bufferInfo = std_msgs.msg.Header.serialize(obj.header, bufferInfo);
-    // Serialize the length for message field [name]
-    bufferInfo = _serializer.uint32(obj.name.length, bufferInfo);
+    bufferOffset = std_msgs.msg.Header.serialize(obj.header, buffer, bufferOffset);
     // Serialize message field [name]
-    obj.name.forEach((val) => {
-      bufferInfo = _serializer.string(val, bufferInfo);
-    });
-    // Serialize the length for message field [value]
-    bufferInfo = _serializer.uint32(obj.value.length, bufferInfo);
+    bufferOffset = _arraySerializer.string(obj.name, buffer, bufferOffset, null);
     // Serialize message field [value]
-    obj.value.forEach((val) => {
-      bufferInfo = _serializer.float32(val, bufferInfo);
-    });
-    return bufferInfo;
+    bufferOffset = _arraySerializer.float32(obj.value, buffer, bufferOffset, null);
+    return bufferOffset;
   }
 
-  static deserialize(buffer) {
+  static deserialize(buffer, bufferOffset=[0]) {
     //deserializes a message object of type SensorState
-    let tmp;
     let len;
-    let data = new SensorState();
+    let data = new SensorState(null);
     // Deserialize message field [header]
-    tmp = std_msgs.msg.Header.deserialize(buffer);
-    data.header = tmp.data;
-    buffer = tmp.buffer;
-    // Deserialize array length for message field [name]
-    tmp = _deserializer.uint32(buffer);
-    len = tmp.data;
-    buffer = tmp.buffer;
+    data.header = std_msgs.msg.Header.deserialize(buffer, bufferOffset);
     // Deserialize message field [name]
-    data.name = new Array(len);
-    for (let i = 0; i < len; ++i) {
-      tmp = _deserializer.string(buffer);
-      data.name[i] = tmp.data;
-      buffer = tmp.buffer;
-    }
-    // Deserialize array length for message field [value]
-    tmp = _deserializer.uint32(buffer);
-    len = tmp.data;
-    buffer = tmp.buffer;
+    data.name = _arrayDeserializer.string(buffer, bufferOffset, null)
     // Deserialize message field [value]
-    data.value = new Array(len);
-    for (let i = 0; i < len; ++i) {
-      tmp = _deserializer.float32(buffer);
-      data.value[i] = tmp.data;
-      buffer = tmp.buffer;
-    }
-    return {
-      data: data,
-      buffer: buffer
-    }
+    data.value = _arrayDeserializer.float32(buffer, bufferOffset, null)
+    return data;
+  }
+
+  static getMessageSize(object) {
+    let length = 0;
+    length += std_msgs.msg.Header.getMessageSize(object.header);
+    object.name.forEach((val) => {
+      length += 4 + val.length;
+    });
+    length += 4 * object.value.length;
+    return length + 8;
   }
 
   static datatype() {
@@ -114,6 +118,35 @@ class SensorState {
     `;
   }
 
+  static Resolve(msg) {
+    // deep-construct a valid message object instance of whatever was passed in
+    if (typeof msg !== 'object' || msg === null) {
+      msg = {};
+    }
+    const resolved = new SensorState(null);
+    if (msg.header !== undefined) {
+      resolved.header = std_msgs.msg.Header.Resolve(msg.header)
+    }
+    else {
+      resolved.header = new std_msgs.msg.Header()
+    }
+
+    if (msg.name !== undefined) {
+      resolved.name = msg.name;
+    }
+    else {
+      resolved.name = []
+    }
+
+    if (msg.value !== undefined) {
+      resolved.value = msg.value;
+    }
+    else {
+      resolved.value = []
+    }
+
+    return resolved;
+    }
 };
 
 module.exports = SensorState;

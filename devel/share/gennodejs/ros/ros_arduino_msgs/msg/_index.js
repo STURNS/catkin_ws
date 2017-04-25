@@ -1,16 +1,16 @@
 
 "use strict";
 
-let Digital = require('./Digital.js');
-let ArduinoConstants = require('./ArduinoConstants.js');
 let AnalogFloat = require('./AnalogFloat.js');
+let Digital = require('./Digital.js');
 let Analog = require('./Analog.js');
 let SensorState = require('./SensorState.js');
+let ArduinoConstants = require('./ArduinoConstants.js');
 
 module.exports = {
-  Digital: Digital,
-  ArduinoConstants: ArduinoConstants,
   AnalogFloat: AnalogFloat,
+  Digital: Digital,
   Analog: Analog,
   SensorState: SensorState,
+  ArduinoConstants: ArduinoConstants,
 };

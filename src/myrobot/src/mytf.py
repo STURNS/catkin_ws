@@ -29,7 +29,7 @@ class TF_trans:
                 tf.transformations.quaternion_from_euler(0, 0, 0),
                 rospy.Time.now(),'map','odom')
 
-            self.br.sendTransform((0.5*cos(dt*0.1), 0.5*sin(dt*0.1), 0),
+            self.br.sendTransform((0.5*cos(dt*0.1), 0.5, 0),
                 tf.transformations.quaternion_from_euler(0, 0, dt*0.1),
                 rospy.Time.now(),'base_link','odom')
 

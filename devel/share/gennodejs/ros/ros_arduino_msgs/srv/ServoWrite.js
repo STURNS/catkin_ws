@@ -5,9 +5,12 @@
 
 "use strict";
 
-let _serializer = require('../base_serialize.js');
-let _deserializer = require('../base_deserialize.js');
-let _finder = require('../find.js');
+const _serializer = _ros_msg_utils.Serialize;
+const _arraySerializer = _serializer.Array;
+const _deserializer = _ros_msg_utils.Deserialize;
+const _arrayDeserializer = _deserializer.Array;
+const _finder = _ros_msg_utils.Find;
+const _getByteLength = _ros_msg_utils.getByteLength;
 
 //-----------------------------------------------------------
 
@@ -15,37 +18,50 @@ let _finder = require('../find.js');
 //-----------------------------------------------------------
 
 class ServoWriteRequest {
-  constructor() {
-    this.id = 0;
-    this.value = 0.0;
+  constructor(initObj={}) {
+    if (initObj === null) {
+      // initObj === null is a special case for deserialization where we don't initialize fields
+      this.id = null;
+      this.value = null;
+    }
+    else {
+      if (initObj.hasOwnProperty('id')) {
+        this.id = initObj.id
+      }
+      else {
+        this.id = 0;
+      }
+      if (initObj.hasOwnProperty('value')) {
+        this.value = initObj.value
+      }
+      else {
+        this.value = 0.0;
+      }
+    }
   }
 
-  static serialize(obj, bufferInfo) {
+  static serialize(obj, buffer, bufferOffset) {
     // Serializes a message object of type ServoWriteRequest
     // Serialize message field [id]
-    bufferInfo = _serializer.uint8(obj.id, bufferInfo);
+    bufferOffset = _serializer.uint8(obj.id, buffer, bufferOffset);
     // Serialize message field [value]
-    bufferInfo = _serializer.float32(obj.value, bufferInfo);
-    return bufferInfo;
+    bufferOffset = _serializer.float32(obj.value, buffer, bufferOffset);
+    return bufferOffset;
   }
 
-  static deserialize(buffer) {
+  static deserialize(buffer, bufferOffset=[0]) {
     //deserializes a message object of type ServoWriteRequest
-    let tmp;
     let len;
-    let data = new ServoWriteRequest();
+    let data = new ServoWriteRequest(null);
     // Deserialize message field [id]
-    tmp = _deserializer.uint8(buffer);
-    data.id = tmp.data;
-    buffer = tmp.buffer;
+    data.id = _deserializer.uint8(buffer, bufferOffset);
     // Deserialize message field [value]
-    tmp = _deserializer.float32(buffer);
-    data.value = tmp.data;
-    buffer = tmp.buffer;
-    return {
-      data: data,
-      buffer: buffer
-    }
+    data.value = _deserializer.float32(buffer, bufferOffset);
+    return data;
+  }
+
+  static getMessageSize(object) {
+    return 5;
   }
 
   static datatype() {
@@ -67,26 +83,53 @@ class ServoWriteRequest {
     `;
   }
 
+  static Resolve(msg) {
+    // deep-construct a valid message object instance of whatever was passed in
+    if (typeof msg !== 'object' || msg === null) {
+      msg = {};
+    }
+    const resolved = new ServoWriteRequest(null);
+    if (msg.id !== undefined) {
+      resolved.id = msg.id;
+    }
+    else {
+      resolved.id = 0
+    }
+
+    if (msg.value !== undefined) {
+      resolved.value = msg.value;
+    }
+    else {
+      resolved.value = 0.0
+    }
+
+    return resolved;
+    }
 };
 
 class ServoWriteResponse {
-  constructor() {
-  }
-
-  static serialize(obj, bufferInfo) {
-    // Serializes a message object of type ServoWriteResponse
-    return bufferInfo;
-  }
-
-  static deserialize(buffer) {
-    //deserializes a message object of type ServoWriteResponse
-    let tmp;
-    let len;
-    let data = new ServoWriteResponse();
-    return {
-      data: data,
-      buffer: buffer
+  constructor(initObj={}) {
+    if (initObj === null) {
+      // initObj === null is a special case for deserialization where we don't initialize fields
     }
+    else {
+    }
+  }
+
+  static serialize(obj, buffer, bufferOffset) {
+    // Serializes a message object of type ServoWriteResponse
+    return bufferOffset;
+  }
+
+  static deserialize(buffer, bufferOffset=[0]) {
+    //deserializes a message object of type ServoWriteResponse
+    let len;
+    let data = new ServoWriteResponse(null);
+    return data;
+  }
+
+  static getMessageSize(object) {
+    return 0;
   }
 
   static datatype() {
@@ -107,9 +150,19 @@ class ServoWriteResponse {
     `;
   }
 
+  static Resolve(msg) {
+    // deep-construct a valid message object instance of whatever was passed in
+    if (typeof msg !== 'object' || msg === null) {
+      msg = {};
+    }
+    const resolved = new ServoWriteResponse(null);
+    return resolved;
+    }
 };
 
 module.exports = {
   Request: ServoWriteRequest,
-  Response: ServoWriteResponse
+  Response: ServoWriteResponse,
+  md5sum() { return 'f90a4a27fdac2d3886d60d19d2b742b2'; },
+  datatype() { return 'ros_arduino_msgs/ServoWrite'; }
 };
