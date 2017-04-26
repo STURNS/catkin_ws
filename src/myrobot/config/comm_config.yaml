@@ -1,4 +1,13 @@
 
-port: '/dev/ttyUSB1'
+port: '/dev/ttyUSB0'
 buadrate: 115200
+reg_address: {
+laser_start: 0,
+laser_end: 360,
+Odom_start: 360,
+Odom_end: 362,
+TF_start: 363,
+TF_end: 368
+
+}
 
