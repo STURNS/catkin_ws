@@ -1,7 +1,7 @@
 <launch>
 
 
-<node pkg="myrobot" type="mytf.py" name="mytf" />
+<!--<node pkg="myrobot" type="mytf.py" name="mytf" />-->
 
 <node pkg="myrobot" type="Comm.py" name="mycomm" >
 <rosparam file="$(find myrobot)/config/comm_config.yaml" command="load" />
