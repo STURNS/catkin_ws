@@ -27,13 +27,14 @@ class Base_Controller:
     def __init__(self):
         rospy.init_node('comm', anonymous=False)
         rospy.on_shutdown(self.shutdown)
-        self.rate  = rospy.Rate(5) #10Hz
+        self.rate  = rospy.Rate(3) #10Hz
         
         #load the params
-        self.port =  rospy.get_param("~port", "/dev/ttyUSB1")
+        self.port =  rospy.get_param("~port", "/dev/ttyUSB0")
         self.buadrate =  rospy.get_param("~buadrate", 115200)
         self.reg_address = rospy.get_param("~reg_address",
-            {'laser_start': 0,'laser_end': 360,'TF_start': 361,'TF_end': 367,'Odom_start': 368,'Odom_end': 374})
+            {'laser_start': 0,'laser_length': 360,'TF_start': 360,'TF_length': 6,
+            'Odom_start': 366,'Odom_length': 6,'vel_start':372,'vel_length':2})
            
 
         self.pub = rospy.Publisher('/laser_scan',LaserScan,queue_size=10)
@@ -59,24 +60,24 @@ class Base_Controller:
     #---------------------------------------------------------------------#          
     def get_data(self):
 
-        n = self.reg_address['laser_end']-1
+        n = self.reg_address['laser_length']
         lrange = pi
         laser_data = LaserScan()
         laser_data.range_max = 10
         laser_data.range_min = 0.1
         laser_data.angle_max = lrange
         laser_data.angle_min = 0
-        laser_data.angle_increment = lrange/n
+        laser_data.angle_increment = lrange/(n-1)
         for i in range(n):
             laser_data.ranges.append(0)
             laser_data.intensities.append(0)
         laser_data.header.frame_id = 'base_link'
         
         #get the data from base controller
-        din = [0]*(self.reg_address['laser_end'] - self.reg_address['laser_start'])
-        odom_data = [0]*(self.reg_address['TF_end'] - self.reg_address['TF_start'] + 5)
-        section = int((self.reg_address['laser_end'] - self.reg_address['laser_start'])/100)
-        if((self.reg_address['laser_end'] - self.reg_address['laser_start'])%100 != 0):
+        din = [0]*self.reg_address['laser_length']
+        odom_data = [0]*self.reg_address['TF_length']
+        section = int(self.reg_address['laser_length']/100)
+        if(self.reg_address['laser_length']%100 != 0):
             section += 1
         while not rospy.is_shutdown():
             #----laser data----
@@ -84,19 +85,29 @@ class Base_Controller:
                 for i in range(section):
                     r_start = i*100
                     r_end = r_start+100                  
-                    if(r_end > self.reg_address['laser_end']):
-                        r_end = self.reg_address['laser_end']
+                    if(r_end > self.reg_address['laser_length']):
+                        r_end = self.reg_address['laser_length']
                     din[r_start:r_end] = list(self.master.execute(1, cst.READ_HOLDING_REGISTERS,  r_start,  (r_end- r_start)))
             except Exception as e:
                 rospy.loginfo('get data error %s'%e)
                 pass
+
             #----odom data----
             try:
-                odom_data =  list(self.master.execute(1, cst.READ_HOLDING_REGISTERS,  self.reg_address['TF_start'],  10))
+                odom_data =  list(self.master.execute(1, cst.READ_HOLDING_REGISTERS,  
+                    self.reg_address['TF_start'],  self.reg_address['TF_length']+self.reg_address['Odom_length']))
             except Exception as e:
                 rospy.loginfo('get data error %s'%e)
                 pass
-            #print(odom_data)
+            
+            print(odom_data)
+            #send vel data to Base_Controller
+            try : 
+                self. master.execute(1, cst.WRITE_SINGLE_REGISTER, 372, output_value=54)
+                #self.master.execute(1, cst.WRITE_MULTIPLE_REGISTERS, 372, output_value=[10,12])  
+            except Exception as e:
+                pass  
+
             self.br.sendTransform((1, 0, 0),
                 tf.transformations.quaternion_from_euler(0, 0, 0),
                 rospy.Time.now(),'odom','world')
@@ -107,18 +118,17 @@ class Base_Controller:
             
             self.br.sendTransform((self.mb_realvalue(odom_data[0])/1000.0,
                 self.mb_realvalue(odom_data[1])/1000.0 , self.mb_realvalue(odom_data[2])/1000.0),
-                tf.transformations.quaternion_from_euler(0, 
-                0,self.mb_realvalue(odom_data[8])/1000.0 ),
+                tf.transformations.quaternion_from_euler(0, 0,self.mb_realvalue(odom_data[5])/1000.0 ),
                 rospy.Time.now(),'base_link','world')
             
-            #print(din)
             #pubulish laser data       
             laser_data.header.stamp = rospy.Time()
             for i in range(n):
                 laser_data.ranges[i] = din[i]/100
                 laser_data.intensities[i] = 0
-            self.pub.publish(laser_data)          
-            self.rate.sleep()
+            self.pub.publish(laser_data)    
+             
+            self.rate.sleep()     
     #---------------------------------------------------------------------#
     #alter mobus value to real value(man can understand)
     #---------------------------------------------------------------------#           

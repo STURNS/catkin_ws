@@ -3,11 +3,13 @@ port: '/dev/ttyUSB1'
 buadrate: 115200
 reg_address: {
 laser_start: 0,
-laser_end: 360,
-TF_start: 361,
-TF_end: 367,
-Odom_start: 368,
-Odom_end: 374
+laser_length: 360,
+TF_start: 360,
+TF_length: 6,
+Odom_start: 366,
+Odom_length: 6,
+vel_start: 372,
+vel_length: 2
 
 }
 
