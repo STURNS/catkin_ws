@@ -103,7 +103,7 @@ class Base_Controller:
             print(odom_data)
             #send vel data to Base_Controller
             try : 
-                self. master.execute(1, cst.WRITE_SINGLE_REGISTER, 372, output_value=54)
+                self. master.execute(1, cst.WRITE_MULTIPLE_REGISTERS, self.reg_address['vel_start'], output_value=[80,80])
                 #self.master.execute(1, cst.WRITE_MULTIPLE_REGISTERS, 372, output_value=[10,12])  
             except Exception as e:
                 pass  
