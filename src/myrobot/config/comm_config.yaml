@@ -9,7 +9,7 @@ TF_length: 6,
 Odom_start: 366,
 Odom_length: 6,
 vel_start: 372,
-vel_length: 2
+vel_length: 3
 
 }
 

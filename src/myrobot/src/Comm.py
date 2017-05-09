@@ -18,7 +18,7 @@ from sensor_msgs.msg  import  LaserScan
 from math import pi,pow,sin,cos
 import tf
 from ctypes import c_int16
-from geometry_msgs.msg import Quaternion
+from geometry_msgs.msg import Quaternion,Twist
 
 class Base_Controller:
     #---------------------------------------------------------------------#
@@ -38,9 +38,11 @@ class Base_Controller:
            
 
         self.pub = rospy.Publisher('/laser_scan',LaserScan,queue_size=10)
+       
+        self.__vel = Twist()
+        rospy.Subscriber("cmd_vel", Twist, self.vel_update)
         #Connect to the slave
-        #mb_logger = modbus_tk.utils.create_logger("console")
-        #tf
+        #tf     
         self.br = tf.TransformBroadcaster()
         try:
             
@@ -55,6 +57,14 @@ class Base_Controller:
 
         except modbus_tk.modbus.ModbusError as exc:
             rospy.logerr("%s- Code=%d", exc, exc.get_exception_code())
+    #---------------------------------------------------------------------#
+    #subscribe the vel data
+    #---------------------------------------------------------------------#      
+    def vel_update(self,req):
+        #should add a mutex
+        self.__vel = req
+        #print(req)
+    
     #---------------------------------------------------------------------#
     #poll
     #---------------------------------------------------------------------#          
@@ -100,12 +110,17 @@ class Base_Controller:
                 rospy.loginfo('get data error %s'%e)
                 pass
             
-            print(odom_data)
+            #print(odom_data)
             #send vel data to Base_Controller
+            # print(self.__vel.linear.x)
+            x = int(self.__vel.linear.x*1000)
+            y = int(self.__vel.linear.y*1000)
+            rz = int(self.__vel.angular.z*1000)
             try : 
-                self. master.execute(1, cst.WRITE_MULTIPLE_REGISTERS, self.reg_address['vel_start'], output_value=[80,80])
-                #self.master.execute(1, cst.WRITE_MULTIPLE_REGISTERS, 372, output_value=[10,12])  
+                self. master.execute(1, cst.WRITE_MULTIPLE_REGISTERS, self.reg_address['vel_start'],  output_value=[x,y,rz])
+               
             except Exception as e:
+                print(e)
                 pass  
 
             self.br.sendTransform((1, 0, 0),
@@ -126,9 +141,9 @@ class Base_Controller:
             for i in range(n):
                 laser_data.ranges[i] = din[i]/100
                 laser_data.intensities[i] = 0
-            self.pub.publish(laser_data)    
-             
+            self.pub.publish(laser_data)                
             self.rate.sleep()     
+            
     #---------------------------------------------------------------------#
     #alter mobus value to real value(man can understand)
     #---------------------------------------------------------------------#           

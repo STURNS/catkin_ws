@@ -16,7 +16,7 @@ class Lobot():
     def __init__(self):
         rospy.init_node('Lobot', anonymous=False)
         rospy.on_shutdown(self.shutdown)
-        self.__rate = rospy.Rate(10)
+        self.__rate = rospy.Rate(1)
         rospy.Subscriber("cmd_vel", Twist, self.vel_update)
         self.pub_odom = rospy.Publisher("odom", Odometry, queue_size=50)
         self.tf_broadcaster = tf.TransformBroadcaster()
